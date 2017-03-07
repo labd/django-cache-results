@@ -42,3 +42,7 @@ class CacheResultsTest(SimpleTestCase):
         example.refresh_cache(1)
         self.assertEqual(nonlocal_dict[1], 4)  # called 4 times
         self.assertEqual(cache.get(get_cache_key(1)), "dummy4")
+
+        # And allow removal
+        example.clear_cache(1)
+        self.assertIsNone(cache.get(get_cache_key(1)))
