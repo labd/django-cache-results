@@ -1,40 +1,55 @@
-language: python
+---
 sudo: false
-cache: pip
-python:
-- '3.4'
-- '3.3'
-- '2.7'
-env:
-- DJANGO="django>=1.7.0,<1.8.0"
-- DJANGO="django>=1.8.0,<1.9.0"
-- DJANGO="django>=1.9.0,<1.10.0"
-- DJANGO="django>=1.10.0,<1.11.0"
+language: python
+
 matrix:
-  exclude:
-  - python: '3.3'
-    env: DJANGO="django>=1.9.0,<1.10.0"
-  - python: '3.3'
-    env: DJANGO="django>=1.10.0,<1.11.0"
-before_install:
-- pip install codecov
+  include:
+    - python: 2.7
+      env: TOXENV=py27-django18
+    - python: 2.7
+      env: TOXENV=py27-django19
+    - python: 2.7
+      env: TOXENV=py27-django110
+    - python: 3.3
+      env: TOXENV=py33-django18
+    - python: 3.4
+      env: TOXENV=py34-django18
+    - python: 3.4
+      env: TOXENV=py34-django19
+    - python: 3.4
+      env: TOXENV=py34-django110
+    - python: 3.5
+      env: TOXENV=py35-django18
+    - python: 3.5
+      env: TOXENV=py35-django19
+    - python: 3.5
+      env: TOXENV=py35-django110
+    - python: 3.6
+      env: TOXENV=py36-django18
+    - python: 3.6
+      env: TOXENV=py36-django19
+    - python: 3.6
+      env: TOXENV=py36-django110
+
+before_cache:
+  - rm -rf $HOME/.cache/pip/log
+
+cache:
+  directories:
+    - $HOME/.cache/pip
+
+deps:
+  - codecov
+
 install:
-- pip install -U pip wheel setuptools
-- pip install $DJANGO -e .
+  - pip install tox codecov
+
 script:
-- coverage run --rcfile=.coveragerc runtests.py
+  - tox -e $TOXENV
+
 after_success:
-- codecov
-branches:
-  only:
-  - master
+  - tox -e coverage-report
+  - codecov
+
 notifications:
-  email:
-    recipients:
-    - travis@edoburu.nl
-    on_success: never
-    on_failure: always
-  slack:
-    secure: CJ+oORfxdm/EQDbIbQ8VZmPLgA15wohO7tv5RpgZXnuTBIWrWE/DwGULqms8P6qiDgHyvR/S8g2wGdaS2HXdz/aDpPPfypyRJJu9y1mupuv1tG2NkN7+7qmjRhjTrn9vvo5I8GaEGKtGVh5jMeahsZkqrYykmLB9rsHoyhZwNmo=
-    on_success: never
-    on_failure: always
+  email: false

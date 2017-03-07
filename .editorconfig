@@ -1,0 +1,19 @@
+root = true
+
+[*.py]
+line_length = 79
+multi_line_output = 4
+balanced_wrapping = true
+known_first_party = django_cache_results,tests
+use_parentheses = true
+indent_style = space
+indent_size = 4
+tab_width = 4
+
+[*.yml]
+indent_size = 2
+shift_width = 2
+
+[Makefile]
+indent_style = tab
+indent_size = 4
