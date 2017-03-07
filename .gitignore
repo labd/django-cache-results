@@ -1,0 +1,16 @@
+*.db
+*.egg-info/
+*.egg/
+*.mo
+*.pyc
+*.pyo
+.DS_Store
+.coverage
+.idea/
+.project
+.pydevproject
+.tox/
+build/
+dist/
+docs/_build/
+htmlcov/
