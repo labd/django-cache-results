@@ -61,7 +61,7 @@ And use it in your project:
 
 .. code-block:: python
 
-    from cache_results import cache_results
+    from django_cache_results import cache_results
 
 
 Contributing

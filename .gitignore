@@ -6,6 +6,8 @@
 *.pyo
 .DS_Store
 .coverage
+.coverage.*
+.cache/
 .idea/
 .project
 .pydevproject
